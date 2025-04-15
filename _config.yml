@@ -1,0 +1,85 @@
+# 网站设置
+title: Zero的first博客 # 博客的标题
+description: 'Artificial Intelligence trends and concepts made easy.' # 博客描述，简要说明内容主题
+permalink: ':title:output_ext' # 文章的永久链接格式
+baseurl: "/" # 网站的子路径，例如 /blog
+url: "https://the-mvm.github.io" # 网站的基本主机名和协议，例如 http://example.com
+logo: "/assets/img/branding/MVM-logo-full.svg" # 网站的logo路径
+logo-icon: "/assets/img/branding/MVM-symbol.svg" # 网站的图标路径
+logo-icon-SEO: "/assets/img/branding/MVM-symbol-black.png" # SEO使用的图标，必须是非SVG文件
+
+# 夜间/黑暗模式设置
+# 默认模式为 "auto"，"auto" 表示自动夜间模式（19:00 - 07:00）
+# "manual" 表示手动切换，"on/off" 表示默认开启/关闭。
+#
+# 用户的选择将覆盖网站的默认设置，并在访问期间保持（会话）。只有黑暗模式的设置是 "manual"，它将在每次访问时始终保持（即无论浏览器是否关闭）
+night_mode: "auto" # 设置夜间模式为自动
+
+logo-dark: "/assets/img/branding/MVM-logo-full-dark.svg" # 夜间模式下的logo路径
+highlight_theme: syntax-base16.monokai.dark # 选择代码高亮的暗色主题（如果需要）
+
+# 作者设置
+author: Zero # 作者姓名
+author-pic: Myself_Neon_grey.jpg # 作者图片路径
+about-author: 西南大学 大数据管理与应用专业大二在读
+email: l1797153262@email.swu.edu.cn # 添加您的邮箱地址
+phone: 13781846722 # 添加您的电话号码（如果需要）
+website: https://amaynez.github.io # 添加您的个人网站
+linkedin: amaynez # 添加您的LinkedIn用户名
+github: liuzihao05 # 添加您的GitHub用户名
+twitter: '@MvmThe' # 添加您的Twitter用户名
+bandcamp: armandomaynez # 添加您的Bandcamp用户名
+stackoverflow: stackoverflow # 添加您的Stack Overflow账户
+
+# 新闻通讯
+mailchimp: "https://github.us1.list-manage.com/subscribe/post?u=8ece198b3eb260e6838461a60&amp;id=397d90b5f4" # Mailchimp订阅链接
+
+# 跟踪设置
+analytics: G-R8SZS2YBZK # Google Analytics跟踪ID
+fbadmin: ar.maybach # Facebook管理员ID
+
+# 分页设置
+paginate: 6 # 每页显示的文章数量
+paginate_path: 'page:num' # 分页路径格式
+words_per_minute: 200 # 阅读速度（每分钟阅读的字数）
+
+extensions:
+  mermaid_enable: true # 启用Mermaid图表功能
+
+# 评论设置
+comments: utteranc  #[disqus, utteranc] # 选择评论系统（Disqus或Utteranc）
+comments_opts:
+  comments_curtain: yes # 是否显示评论幕布，留空则直接显示Disqus嵌入
+  repo: # GitHub仓库URL，用于Utteranc评论
+  issue_term: # GitHub问题标签
+  label: # GitHub评论标签
+  theme: # GitHub评论的主题，例如github-dark
+  # Disqus
+  discus_identifier: # 添加您的Disqus标识符
+
+# 构建设置
+markdown: kramdown # 使用Kramdown作为Markdown解析器
+mathjax: true # 启用MathJax以支持数学公式
+highlighter: rouge # 使用Rouge作为代码高亮工具
+compress_html: # HTML压缩设置
+  clippings: all # 压缩片段
+  comments: all # 压缩评论
+  startings: [html, head, body] # 压缩的起始标签
+
+# 输出设置
+timezone: # 设置时区，例如 https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
+category_archive:
+  type: liquid # 分类归档类型
+  path: /categories/ # 分类归档路径
+
+sass:
+  style: compressed # SASS样式压缩设置
+
+plugins: # 启用的插件
+  - jekyll-paginate # 分页插件
+  - jekyll-feed # RSS订阅插件
+  - jekyll-sitemap # 网站地图插件
+
+include: [_pages] # 包含的文件或目录
+exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock", "package-lock.json", "assets/css/sass/"] # 排除的文件或目录
