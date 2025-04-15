@@ -2,46 +2,46 @@
 layout: post
 read_time: true
 show_date: true
-title:  Machine Learning Library in Python from scratch
+title:  从零开始用Python构建机器学习库
 date:   2021-02-28 12:32:20 -0600
-description: Single neuron perceptron that classifies elements learning quite quickly.
+description: 能够快速学习对元素进行分类的单神经元感知器。
 img: posts/20210228/MLLibrary.jpg 
-tags: [machine learning, coding, neural networks, python]
+tags: [机器学习, 编码, 神经网络, Python]
 author: Armando Maynez
 github: amaynez/GenericNeuralNetwork/
 ---
-It must sound crazy that in this day and age, when we have such a myriad of amazing machine learning libraries and toolkits all open sourced, all quite well documented and easy to use, I decided to create my own ML library from scratch.
+在如今这个时代，我们拥有无数令人惊叹的开源机器学习库和工具包，它们都有完善的文档说明且易于使用，而我却决定从零开始创建自己的机器学习库，这听起来肯定很疯狂。
 <center><img src="./assets/img/posts/20210228/ML_cloud.jpg" width="480px"></center>
-Let me try to explain; I am in the process of immersing myself into the world of Machine Learning, and to do so, I want to deeply understand the basic concepts and its foundations, and I think that there is no better way to do so than by creating myself all the code for a basic neural network library from scratch. This way I can gain in depth understanding of the math that underpins the ML algorithms.
+让我试着解释一下：我正处于沉浸于机器学习世界的过程中，为此，我想要深入理解其基本概念和基础原理。我认为，没有比从零开始编写一个基本神经网络库的所有代码更好的方法了。通过这种方式，我可以深入理解支撑机器学习算法的数学原理。
 
-Another benefit of doing this is that since I am also learning Python, the experiment brings along good exercise for me.
+这样做的另一个好处是，由于我也在学习Python，这个实验对我来说是很好的练习。
 
-To call it a Machine Learning Library is perhaps a bit of a stretch, since I just intended to create a **multi-neuron, multi-layered [perceptron](./single-neuron-perceptron.html)**.
+称它为一个机器学习库也许有点夸张，因为我只是打算创建一个 **多神经元、多层的[感知器](./single-neuron-perceptron.html)** 。
 
 <center><img src="./assets/img/posts/20210228/nnet_flow.gif"></center>
 
-The library started very narrowly, with just the following functionality:
-- **create** a neural network based on the following parameters:
-    - number of inputs
-    - size and number of hidden layers
-    - number of outputs
-    - learning rate
-- **forward propagate** or predict the output values when given some inputs
-- **learn** through back propagation using gradient descent
+这个库最初功能非常有限，只有以下这些功能：
+- **创建** 一个基于以下参数的神经网络：
+    - 输入数量
+    - 隐藏层的大小和数量
+    - 输出数量
+    - 学习率
+- **前向传播** ，即在给定一些输入时预测输出值
+- 通过使用梯度下降的反向传播进行 **学习**
 
-I restricted the model to be sequential, and the layers to be only dense / fully connected, this means that every neuron is connected to every neuron of the following layer. Also, as a restriction, the only activation function I implemented was sigmoid:
+我将模型限制为顺序模型，并且层仅为全连接层，这意味着每个神经元都与下一层的每个神经元相连。此外，作为一种限制，我实现的唯一激活函数是Sigmoid函数：
 
 <center><img src="./assets/img/posts/20210228/nn_diagram.png"></center>
 
-With my neural network coded, I tested it with a very basic problem, the famous XOR problem.
+在编写好我的神经网络后，我用一个非常基础的问题来测试它，即著名的异或（XOR）问题。
 
-XOR is a logical operation that cannot be solved by a single perceptron because of its linearity restriction:
+异或是一种逻辑运算，由于其线性限制，单个感知器无法解决这个问题：
 
 <center><img src="./assets/img/posts/20210228/xor_problem.png"></center>
 
-As you can see, when plotted in an X,Y plane, the logical operators AND and OR have a line that can clearly separate the points that are false from the ones that are true, hence a perceptron can easily learn to classify them; however, for XOR there is no single straight line that can do so, therefore a multilayer perceptron is needed for the task.
+如你所见，当在X、Y平面上绘制时，逻辑运算符“与”（AND）和“或”（OR）有一条线可以清楚地将值为假的点和值为真的点分开，因此感知器可以轻松地学习对它们进行分类；然而，对于异或运算，没有一条直线可以做到这一点，因此需要一个多层感知器来完成这项任务。
 
-For the test I created a neural network with my library:
+为了进行测试，我使用我的库创建了一个神经网络：
 ```python
 import Neural_Network as nn
 
@@ -53,11 +53,11 @@ learning_rate = 0.03
 NN = nn.NeuralNetwork(inputs, hidden_layers, outputs, learning_rate)
 ```
 
-The three inputs I decided to use (after a lot of trial and error) are the X and Y coordinate of a point (between X = 0, X = 1, Y = 0 and Y = 1) and as the third input the multiplication of both X and Y. Apparently it gives the network more information, and it ends up converging much more quickly with this third input.
+我经过大量尝试后决定使用的三个输入是一个点的X坐标和Y坐标（X在0到1之间，Y在0到1之间），第三个输入是X和Y的乘积。显然，这为网络提供了更多信息，并且有了这个第三个输入，网络最终收敛得更快。
 
-Then there is a single hidden layer with 2 neurons and one output value, that will represent False if the value is closer to 0 or True if the value is closer to 1.
+然后有一个包含2个神经元的单个隐藏层和一个输出值，如果该值更接近0，则表示“假”，如果更接近1，则表示“真”。
 
-Then I created the learning data, which is quite trivial for this problem, since we know very easily how to compute XOR.
+然后我创建了学习数据，对于这个问题来说，这相当简单，因为我们很容易知道如何计算异或。
 
 ```python
 training_data = []
@@ -67,17 +67,17 @@ for n in range(learning_rounds):
     training_data.append([x, y, x * y, 0 if (x < 0.5 and y < 0.5) or (x >= 0.5 and y >= 0.5) else 1])
 ```
 
-And off we go into training:
+然后我们开始训练：
 ```python
 for data in training_data:
     NN.train(data[:3].reshape(inputs), data[3:].reshape(outputs))
 ```
 
-The ML library can only train on batches of 1 (another self-imposed coding restriction), therefore only one "observation" at a time, this is why the train function accepts two parameters, one is the inputs packed in an array, and the other one is the outputs, packed as well in an array.
+这个机器学习库只能一次训练一批数据（这是我自己设定的另一个编码限制），因此一次只能处理一个“观测值”。这就是为什么训练函数接受两个参数，一个是打包在数组中的输入，另一个也是打包在数组中的输出。
 
-To see the neural net in action I decided to plot the predicted results in both a 3d X,Y,Z surface plot (z being  the network's predicted value), and a scatter plot with the color of the points representing the predicted value.
+为了观察神经网络的实际运行情况，我决定绘制预测结果，包括一个三维的X、Y、Z曲面图（Z是网络的预测值），以及一个散点图，点的颜色表示预测值。
 
-This was plotted in MatPlotLib, so we needed to do some housekeeping first:
+这是使用Matplotlib绘制的，所以我们首先需要做一些准备工作：
 
 ```python
 fig = plt.figure()
@@ -88,7 +88,7 @@ axs1 = fig.add_subplot(1, 2, 1, projection='3d')
 axs2 = fig.add_subplot(1, 2, 2)
 ```
 
-Then we need to prepare the data to be plotted by generating X and Y values distributed between 0 and 1, and having the network calculate the Z value:
+然后我们需要准备要绘制的数据，生成分布在0到1之间的X和Y值，并让网络计算Z值：
 
 ```python
 x = np.linspace(0, 1, num_surface_points)
@@ -98,7 +98,7 @@ x, y = np.meshgrid(x, y)
 z = np.array(NN.forward_propagation([x, y, x * y])).reshape(num_surface_points, num_surface_points)
 ```
 
-As you can see, the z values array is reshaped as a 2d array of shape (x,y), since this is the way Matplotlib interprets it as a surface:
+如你所见，Z值数组被重塑为一个形状为（x，y）的二维数组，因为Matplotlib就是这样将其解释为曲面的：
 
 ```python
 axs1.plot_surface(x, y, z,
@@ -110,11 +110,11 @@ axs1.plot_surface(x, y, z,
                   antialiased=True)
 ```
 
-The end result looks something like this:
+最终结果看起来像这样：
 <center><img src="./assets/img/posts/20210228/Surface_XOR.jpg"></center>
 
 
-Then we reshape the z array as a one dimensional array to use it to color the scatter plot:
+然后我们将Z数组重塑为一维数组，以便用它来为散点图上色：
 
 ```python
 z = z.reshape(num_surface_points ** 2)
@@ -128,7 +128,7 @@ scatter = axs2.scatter(x, y,
 ```
 <center><img src="./assets/img/posts/20210228/Final_XOR_Plot.jpg"></center>
 
-To actually see the progress while learning, I created a Matplotlib animation, and it is quite interesting to see as it learns.
+为了实际看到学习过程中的进展，我创建了一个Matplotlib动画，看着它学习的过程非常有趣。 
 
 <center><video width="598" height="298" controls autoplay loop>
   <source type="video/mp4" src="data:video/mp4;base64,AAAAIGZ0eXBNNFYgAAACAE00ViBpc29taXNvMmF2YzEAAAAIZnJlZQAF5nJtZGF0AAACrgYF//+q
@@ -6965,11 +6965,11 @@ qXRvbwAAAB1kYXRhAAAAAQAAAABMYXZmNTguNDUuMTAw
   <img src="./assets/img/posts/20210228/xor_animation.gif">
 </video></center>
 
-So my baby ML library is completed for now, but still I would like to enhance it in several ways:
+所以，目前我这个初创的机器学习库已经完成了，但我仍然想从几个方面对它进行改进：
 
-- include multiple activation functions (ReLu, linear, Tanh, etc.)
-- allow for multiple optimizers (Adam, RMSProp, SGD Momentum, etc.)
-- have batch and epoch training schedules functionality
-- save and load trained model to file
+- 纳入多种激活函数（修正线性单元（ReLu）、线性函数、双曲正切函数（Tanh）等等）
+- 支持多种优化器（自适应矩估计（Adam）、均方根传播（RMSProp）、带动量的随机梯度下降（SGD Momentum）等等）
+- 具备批次和轮次训练计划的功能
+- 能够将训练好的模型保存到文件中以及从文件中加载模型
 
-I will get to it soon...
+我很快就会着手去做这些…… 
